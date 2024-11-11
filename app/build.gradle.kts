@@ -50,7 +50,9 @@ android {
 }
 
 dependencies {
-
+    // ------------------------------
+    // Основные зависимости Android и Compose
+    // ------------------------------
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -58,12 +60,49 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+
+    // ------------------------------
+    // Material Design
+    // ------------------------------
+    implementation(libs.androidx.material3.v110)
+
+    // ------------------------------
+    // Архитектура и состояние
+    // ------------------------------
+    implementation(libs.androidx.lifecycle.viewmodel.compose.v261)
+    implementation(libs.androidx.lifecycle.runtime.compose.v261)
+    implementation(libs.kotlinx.coroutines.core.v164)
+    implementation(libs.kotlinx.coroutines.android.v164)
+
+    // ------------------------------
+    // Навигация
+    // ------------------------------
+    implementation(libs.androidx.navigation.compose)
+
+    // ------------------------------
+    // Библиотеки для изображений
+    // ------------------------------
+    implementation(libs.coil.compose.v240)
+
+    // ------------------------------
+    // ConstraintLayout для Compose
+    // ------------------------------
+    implementation(libs.androidx.constraintlayout.compose.android)
+
+    // ------------------------------
+    // Тестовые зависимости
+    // ------------------------------
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // ------------------------------
+    // Зависимости для отладки
+    // ------------------------------
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
+
