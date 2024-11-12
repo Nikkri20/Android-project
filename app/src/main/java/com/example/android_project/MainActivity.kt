@@ -1,5 +1,6 @@
 package com.example.android_project
 
+import AppNavigation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,7 +10,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.android_project.ui.navigation.AppNavigation
 import com.example.android_project.ui.theme.AndroidprojectTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -25,13 +25,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             AndroidprojectTheme {
                 val navController = rememberNavController()
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    bottomBar = { BottomNavigationBar(navController) }
-                ) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize(),
+                    bottomBar = { BottomNavigationBar(navController) }) { innerPadding ->
                     AppNavigation(
-                        navController = navController,
-                        modifier = Modifier.padding(innerPadding)
+                        navController = navController, modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
@@ -42,16 +39,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
     NavigationBar {
-        NavigationBarItem(
-            icon = {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.List,
-                    contentDescription = "List"
-                )
-            },
+        NavigationBarItem(icon = {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.List, contentDescription = "List"
+            )
+        },
             label = { Text("Список") },
             selected = false,
-            onClick = { navController.navigate("list_screen") }
-        )
+            onClick = { navController.navigate("list_screen") })
     }
 }

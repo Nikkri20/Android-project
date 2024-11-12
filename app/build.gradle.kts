@@ -51,7 +51,7 @@ android {
 
 dependencies {
     // ------------------------------
-    // Основные зависимости Android и Compose
+    // Основные зависимости Android и Jetpack Compose
     // ------------------------------
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.androidx.material3.v110)
 
     // ------------------------------
-    // Архитектура и состояние
+    // Архитектура и управление состоянием
     // ------------------------------
     implementation(libs.androidx.lifecycle.viewmodel.compose.v261)
     implementation(libs.androidx.lifecycle.runtime.compose.v261)
@@ -80,7 +80,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     // ------------------------------
-    // Библиотеки для изображений
+    // Библиотеки для загрузки изображений
     // ------------------------------
     implementation(libs.coil.compose.v240)
 
@@ -90,7 +90,25 @@ dependencies {
     implementation(libs.androidx.constraintlayout.compose.android)
 
     // ------------------------------
-    // Тестовые зависимости
+    // Сетевые библиотеки
+    // ------------------------------
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.squareup.converter.scalars)
+
+    // ------------------------------
+    // HTML парсинг
+    // ------------------------------
+    implementation(libs.jsoup)
+
+    // ------------------------------
+    // Для работы с сохранением состояния
+    // ------------------------------
+    implementation(libs.runtime.saveable.v143)
+
+    // ------------------------------
+    // Тестирование
     // ------------------------------
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -104,5 +122,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
 
 

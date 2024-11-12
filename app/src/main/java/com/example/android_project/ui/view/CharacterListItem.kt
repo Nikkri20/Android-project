@@ -1,6 +1,3 @@
-package com.example.android_project.ui.view
-
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.android_project.data.model.Character
 
 @Composable
@@ -42,33 +39,23 @@ fun CharacterListItem(character: Character, onClick: () -> Unit) {
                 color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(8.dp),
             ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Image(
-                        painter = painterResource(character.imageResId),
-                        contentDescription = "${character.name} Image",
-                        modifier = Modifier.size(64.dp),
-                        contentScale = ContentScale.Crop
-                    )
-                }
+                AsyncImage(
+                    model = character.imageUrl,
+                    contentDescription = "${character.name} Image",
+                    modifier = Modifier.size(64.dp),
+                    contentScale = ContentScale.Crop,
+                )
             }
 
-            Surface(
+            Column(
                 modifier = Modifier
                     .weight(2f)
-                    .aspectRatio(3f),
-                color = MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(8.dp)
+                    .padding(start = 8.dp),
+                verticalArrangement = Arrangement.Center
             ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = character.name,
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
-                }
+                Text(
+                    text = character.name, style = MaterialTheme.typography.bodyLarge
+                )
             }
         }
     }
