@@ -27,7 +27,7 @@ fun CharacterListScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.background), // Замените на ID вашего фонового изображения
+            painter = painterResource(id = R.drawable.background),
             contentDescription = "Background",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
