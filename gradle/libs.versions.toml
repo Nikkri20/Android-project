@@ -9,6 +9,7 @@ constraintlayout = "2.1.4"
 constraintlayoutCompose = "1.0.1"
 constraintlayoutComposeVersion = "1.1.0"
 converterGson = "2.9.0"
+datastorePreferences = "1.0.0"
 drawerlayout = "1.1.1"
 jsoup = "1.14.3"
 kotlin = "1.9.0"
@@ -44,6 +45,7 @@ androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayo
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-constraintlayout-compose-v110 = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-drawerlayout = { module = "androidx.drawerlayout:drawerlayout", version.ref = "drawerlayout" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleViewmodelCompose" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleViewmodelCompose" }

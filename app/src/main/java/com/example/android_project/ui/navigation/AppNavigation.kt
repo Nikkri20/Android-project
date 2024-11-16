@@ -5,7 +5,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.composable
+import com.example.android_project.ui.view.CharacterListScreen
+import com.example.android_project.ui.view.FilterSettingsScreen
+import com.example.android_project.viewmodel.FilterSettingsViewModel
 
 @Composable
 fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -32,7 +36,28 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 navController = navController, character = character
             )
         }
+
+        composable("filter_settings") {
+            val filterSettingsViewModel: FilterSettingsViewModel = viewModel()
+            val characterViewModel: CharacterViewModel = viewModel()
+            val context = LocalContext.current
+
+            // Загрузка фильтров при заходе на экран
+            LaunchedEffect(Unit) {
+                filterSettingsViewModel.loadFilters(context)
+            }
+
+            // Отображение экрана фильтров
+            FilterSettingsScreen(
+                viewModel = filterSettingsViewModel,
+                onApplyFilters = {
+                    navController.popBackStack()
+                    characterViewModel.applyFilters(context)
+                }
+            )
+        }
     }
 }
+
 
 

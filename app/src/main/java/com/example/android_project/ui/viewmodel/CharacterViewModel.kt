@@ -1,3 +1,4 @@
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.domain.CharacterUseCase
@@ -6,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import com.example.android_project.data.model.Character
 import com.example.android_project.data.repository.CharacterRepository
+import com.example.android_project.data.store.SettingsDataStore
 
 class CharacterViewModel : ViewModel() {
 
@@ -55,4 +57,15 @@ class CharacterViewModel : ViewModel() {
             }
         }
     }
+
+    fun applyFilters(context: Context) {
+        viewModelScope.launch {
+            val settings = SettingsDataStore(context).loadFilters()
+            _characters.value = useCase.getCharacterList().filter { character ->
+                (settings.gender.isEmpty() || character.details["Gender"] == settings.gender) &&
+                        (settings.minAge <= (character.details["Age"]?.toIntOrNull() ?: 0))
+            }
+        }
+    }
+
 }
