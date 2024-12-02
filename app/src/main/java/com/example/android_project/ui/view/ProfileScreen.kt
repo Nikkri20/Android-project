@@ -69,13 +69,15 @@ fun ProfileScreen(navController: NavHostController) {
                 if (!profile.avatarUri.isNullOrEmpty()) {
                     Image(
                         painter = rememberImagePainter(profile.avatarUri),
-                        contentDescription = "Фото профиля",
+                        contentDescription = "Профиль",
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.profile),
-                        contentDescription = "Фото профиля",
+                        contentDescription = "Дефолт профиль",
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
