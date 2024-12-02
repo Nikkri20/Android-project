@@ -3,31 +3,47 @@ package com.example.android_project.data.store
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-private val Context.dataStore by preferencesDataStore(name = "filter_settings")
+private val Context.dataStore by preferencesDataStore("settings")
+private val FAVORITE_KEY = stringPreferencesKey("favorite_ids")
 
-data class FilterSettings(val gender: String, val minAge: Int)
+class SettingsDataStore(context: Context) {
+    private val dataStore = context.dataStore
 
-class SettingsDataStore(private val context: Context) {
     companion object {
-        private val GENDER_KEY = stringPreferencesKey("gender")
-        private val MIN_AGE_KEY = intPreferencesKey("min_age")
+        val NAME_KEY = stringPreferencesKey("name")
+        val GROUP_KEY = stringPreferencesKey("group")
     }
 
-    suspend fun saveFilters(gender: String, minAge: Int) {
-        context.dataStore.edit { preferences ->
-            preferences[GENDER_KEY] = gender
-            preferences[MIN_AGE_KEY] = minAge
+    suspend fun saveFilters(name: String, group: String) {
+        dataStore.edit { preferences ->
+            preferences[NAME_KEY] = name
+            preferences[GROUP_KEY] = group
         }
     }
 
-    suspend fun loadFilters(): FilterSettings {
-        val preferences = context.dataStore.data.first()
-        val gender = preferences[GENDER_KEY] ?: ""
-        val minAge = preferences[MIN_AGE_KEY] ?: 0
-        return FilterSettings(gender, minAge)
+    fun loadFilters(): Flow<Settings> = dataStore.data.map { preferences ->
+        Settings(
+            name = preferences[NAME_KEY] ?: "",
+            group = preferences[GROUP_KEY] ?: ""
+        )
+    }
+
+    data class Settings(
+        val name: String,
+        val group: String
+    )
+
+    suspend fun saveFavorites(favorites: List<String>) {
+        dataStore.edit { preferences ->
+            preferences[FAVORITE_KEY] = favorites.joinToString(",")
+        }
+    }
+
+    fun loadFavorites(): Flow<List<String>> = dataStore.data.map { preferences ->
+        preferences[FAVORITE_KEY]?.split(",")?.filter { it.isNotBlank() } ?: emptyList()
     }
 }

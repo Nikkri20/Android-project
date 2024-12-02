@@ -4,5 +4,7 @@ data class Character(
     val id: String,
     val name: String,
     val imageUrl: String? = null,
-    val details: Map<String, String> = emptyMap()
+    val group: String = "",
+    val details: Map<String, String> = emptyMap(),
+    var isFavorite: Boolean = false
 )

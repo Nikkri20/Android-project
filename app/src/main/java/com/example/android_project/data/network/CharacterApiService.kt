@@ -8,5 +8,3 @@ interface CharacterApiService {
     @GET
     fun getCharacterHtml(@Url url: String): Call<String>
 }
-
-

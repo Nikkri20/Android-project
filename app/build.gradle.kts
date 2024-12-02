@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -80,14 +82,28 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     // ------------------------------
-    // Библиотеки для загрузки изображений
-    // ------------------------------
-    implementation(libs.coil.compose.v240)
-
-    // ------------------------------
     // ConstraintLayout для Compose
     // ------------------------------
     implementation(libs.androidx.constraintlayout.compose.android)
+
+    // ------------------------------
+    // Работа с сохранением состояния
+    // ------------------------------
+    implementation(libs.runtime.saveable.v143)
+
+    // ------------------------------
+    // Работа с данными
+    // ------------------------------
+    implementation(libs.androidx.datastore.preferences)
+    implementation("androidx.room:room-runtime:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+
+    // ------------------------------
+    // Зависимости Hilt
+    // ------------------------------
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     // ------------------------------
     // Сетевые библиотеки
@@ -98,14 +114,14 @@ dependencies {
     implementation(libs.squareup.converter.scalars)
 
     // ------------------------------
+    // Загрузка изображений
+    // ------------------------------
+    implementation(libs.coil.compose.v240)
+
+    // ------------------------------
     // HTML парсинг
     // ------------------------------
     implementation(libs.jsoup)
-
-    // ------------------------------
-    // Для работы с сохранением состояния
-    // ------------------------------
-    implementation(libs.runtime.saveable.v143)
 
     // ------------------------------
     // Тестирование
@@ -121,8 +137,6 @@ dependencies {
     // ------------------------------
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation(libs.androidx.datastore.preferences)
 }
 
 

@@ -1,6 +1,7 @@
+package com.example.android_project.ui.view
+
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,7 +46,6 @@ fun CharacterDetailScreen(navController: NavController, character: Character?) {
         )
 
         if (character != null) {
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -59,17 +59,21 @@ fun CharacterDetailScreen(navController: NavController, character: Character?) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Image(painter = painterResource(id = R.drawable.back_button),
+                    Image(
+                        painter = painterResource(id = R.drawable.back_button),
                         contentDescription = "Back",
                         modifier = Modifier
                             .size(24.dp)
-                            .clickable { navController.popBackStack() })
+                            .clickable { navController.popBackStack() }
+                    )
 
-                    Image(painter = painterResource(id = R.drawable.share),
+                    Image(
+                        painter = painterResource(id = R.drawable.share),
                         contentDescription = "Share",
                         modifier = Modifier
                             .size(24.dp)
-                            .clickable { shareCharacterInfo(context, character) })
+                            .clickable { shareCharacterInfo(context, character) }
+                    )
                 }
 
                 AsyncImage(
@@ -93,7 +97,8 @@ fun CharacterDetailScreen(navController: NavController, character: Character?) {
                                 colors = listOf(Color(0xB3000000), Color(0x33000000)),
                                 startY = 0f,
                                 endY = 1000f
-                            ), shape = RoundedCornerShape(8.dp)
+                            ),
+                            shape = RoundedCornerShape(8.dp)
                         )
                         .padding(16.dp)
                 ) {
@@ -114,7 +119,7 @@ fun CharacterDetailScreen(navController: NavController, character: Character?) {
             }
         } else {
             Text(
-                text = "Loading...",
+                text = "Загрузка...",
                 color = Color.White,
                 modifier = Modifier.align(Alignment.Center)
             )
@@ -132,7 +137,8 @@ fun TextRow(label: String, value: String?) {
             modifier = Modifier.padding(end = 8.dp)
         )
         Text(
-            text = value ?: "Unknown", color = Color.White
+            text = value ?: "Unknown",
+            color = Color.White
         )
     }
 }
@@ -155,5 +161,3 @@ fun shareCharacterInfo(context: Context, character: Character) {
 
     context.startActivity(Intent.createChooser(intent, "Share Character Info"))
 }
-
-

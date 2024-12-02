@@ -5,11 +5,7 @@ import com.example.android_project.data.repository.CharacterRepository
 
 class CharacterUseCase(private val repository: CharacterRepository) {
 
-    suspend fun getCharacterList(): List<Character> {
-        return repository.getCharacterList()
-    }
+    suspend fun getCharacterList(): List<Character> = repository.getCharacterList()
 
-    suspend fun getCharacterDetails(characterId: String): Character? {
-        return repository.getCharacterDetails(characterId)
-    }
+    suspend fun getCharacterDetails(characterId: String): Character? = repository.getCharacterDetails(characterId)
 }
