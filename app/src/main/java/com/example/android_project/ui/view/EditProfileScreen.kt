@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -79,6 +80,16 @@ fun EditProfileScreen(navController: NavHostController) {
                 avatarUri = saveBitmapToInternalStorage(context, it)
             }
         }
+
+    val requestCameraPermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            takePhotoFromCamera.launch(null)
+        } else {
+            Toast.makeText(context, "Разрешение на использование камеры отклонено", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         if (isProfileLoaded) {
@@ -228,6 +239,38 @@ fun EditProfileScreen(navController: NavHostController) {
                     Text("Сохранить")
                 }
 
+                if (showImageSourceDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showImageSourceDialog = false },
+                        title = { Text("Выберите источник изображения") },
+                        text = { Text("Выберите камеру или галерею для загрузки изображения.") },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                if (ActivityCompat.checkSelfPermission(
+                                        context,
+                                        android.Manifest.permission.CAMERA
+                                    ) == PackageManager.PERMISSION_GRANTED
+                                ) {
+                                    takePhotoFromCamera.launch(null)
+                                } else {
+                                    requestCameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+                                }
+                                showImageSourceDialog = false
+                            }) {
+                                Text("Камера")
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = {
+                                getImageFromGallery.launch("image/*")
+                                showImageSourceDialog = false
+                            }) {
+                                Text("Галерея")
+                            }
+                        }
+                    )
+                }
+
             }
         } else {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -236,7 +279,6 @@ fun EditProfileScreen(navController: NavHostController) {
         }
     }
 }
-
 
 private fun isValidTimeFormat(time: String): Boolean {
     val regex = Regex("^(?:[01]\\d|2[0-3]):[0-5]\\d$")
@@ -282,6 +324,7 @@ fun setAlarm(context: Context, time: String, name: String) {
         Log.e("setAlarm", "Ошибка установки будильника: ${e.message}")
     }
 }
+
 
 private fun saveImageToInternalStorage(context: Context, imageUri: Uri): String {
     val contentResolver = context.contentResolver
